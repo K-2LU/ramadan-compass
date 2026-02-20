@@ -25,7 +25,7 @@ export default function Home() {
       location: null,
       prayerTimes: null,
       loading: false,
-      error: "Please enter your location or use your device geolocation.",
+      error: null, // Removed error state on initialization
     });
   };
 
@@ -134,22 +134,24 @@ export default function Home() {
               <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
               <p className="text-slate-400">Detecting location and calculating times...</p>
             </div>
-          ) : state.error ? (
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-center space-y-4 backdrop-blur-sm">
-              <AlertCircle className="w-12 h-12 text-red-500 mx-auto" />
-              <div className="text-red-200 text-left">
-                <h2 className="text-lg font-semibold mb-2 text-center text-red-300">Location Detection Failed</h2>
-                <p className="text-sm text-red-300/80 mb-6 text-center">{state.error}</p>
+          ) : !state.location && !state.prayerTimes ? (
+            <div className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6 text-center space-y-4 backdrop-blur-sm">
+              <Compass className="w-12 h-12 text-emerald-500 mx-auto" />
+              <div className="text-slate-200 text-left">
+                <h2 className="text-lg font-semibold mb-2 text-center text-emerald-300">Set Your Location</h2>
+                <p className="text-sm text-slate-400 mb-6 text-center">
+                  {state.error || "Enter your city or use device location to get accurate prayer times."}
+                </p>
                 
-                <form onSubmit={handleManualSearch} className="space-y-4 max-w-sm mx-auto bg-slate-900/50 p-5 rounded-xl border border-red-500/20">
-                  <h3 className="text-sm text-red-200 font-medium pb-2 border-b border-red-500/20 mb-2">Enter location manually:</h3>
+                <form onSubmit={handleManualSearch} className="space-y-4 max-w-sm mx-auto bg-slate-900/50 p-5 rounded-xl border border-slate-700/50">
+                  <h3 className="text-sm text-slate-300 font-medium pb-2 border-b border-slate-700/50 mb-2">Search Manually:</h3>
                   <div>
                     <input 
                       type="text" 
                       placeholder="City (e.g. London)" 
                       value={cityInput}
                       onChange={(e) => setCityInput(e.target.value)}
-                      className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-red-400"
+                      className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500/50"
                       required
                     />
                   </div>
@@ -159,14 +161,14 @@ export default function Home() {
                       placeholder="Country (e.g. UK)" 
                       value={countryInput}
                       onChange={(e) => setCountryInput(e.target.value)}
-                      className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-red-400"
+                      className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500/50"
                       required
                     />
                   </div>
                   <div className="flex flex-col gap-3 pt-2">
                     <button 
                       type="submit"
-                      className="w-full px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors border border-red-500 text-sm font-medium shadow-lg shadow-red-900/20"
+                      className="w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors border border-emerald-500 text-sm font-medium shadow-lg shadow-emerald-900/20"
                     >
                       Search City
                     </button>
@@ -174,9 +176,9 @@ export default function Home() {
                       <button 
                         type="button"
                         onClick={handleBrowserLocation}
-                        className="flex-1 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 rounded-lg transition-colors border border-emerald-500/30 text-sm font-medium flex items-center justify-center gap-2"
+                        className="flex-1 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-lg transition-colors border border-slate-700 text-sm font-medium flex items-center justify-center gap-2"
                       >
-                        <Compass className="w-4 h-4" /> Use Device Location
+                        <MapPin className="w-4 h-4" /> Use Device Location
                       </button>
                     </div>
                   </div>
