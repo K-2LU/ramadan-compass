@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import { Lexend } from 'next/font/google';
 import './globals.css';
+
+const lexend = Lexend({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Ramadan Compass | Live Suhoor & Iftar Countdown',
@@ -13,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-slate-900 text-slate-100 selection:bg-emerald-500/30">
+      <body className={`${lexend.className} antialiased bg-slate-900 text-slate-100 selection:bg-emerald-500/30`}>
         {children}
       </body>
     </html>

@@ -16,7 +16,7 @@ export default function PrayerCard({ title, time, icon, isActive = false, descri
         flex flex-row items-center justify-between border
         ${
           isActive
-            ? 'bg-gradient-to-r from-emerald-900/40 to-emerald-800/20 border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)] transform scale-[1.02]'
+            ? 'bg-linear-gradient-to-r from-emerald-900/40 to-emerald-800/20 border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)] transform scale-[1.02]'
             : 'bg-slate-800/40 border-slate-700/50 hover:bg-slate-800 hover:border-slate-600'
         }
       `}
